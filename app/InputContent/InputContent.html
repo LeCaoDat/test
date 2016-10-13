@@ -1,0 +1,52 @@
+      <div class="row">
+        <div class="column">
+          <div class="ui form">
+            <div class="ui segment">
+              <div class="two fields">
+                <div class="field">
+                  <label>First Name</label>
+                  <input placeholder="Input firstName" name="firstName" type="text" #newfirstName>
+                </div>
+                <div class="field">
+                  <label>Last Name</label>
+                  <input placeholder="Input lastname" name="lastName" type="text" #newlastName>
+                </div>
+              </div>
+              <!--<div class="ui center aligned grid">-->
+                <div class="ui center aligned grid field">
+                  <div class="six wide field ">
+                    <label>Day of Birth</label>
+                    <div class="ui calendar" id="example2">
+                      <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="date" placeholder="Date" name="dayOfBirth" #newdayOfBirth>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!--</div>-->
+              <div class="fields">
+                <div class="eight wide field">
+                  <label>Mathematic</label>
+                  <input placeholder="Mathematic mark" title="Value from 0.0 to 10.0" min="0.0" max="10.0" name="mathematicMark" type="number" #newmathematicMark>
+                </div>
+                <div class="eight wide field">
+                  <label>Physic</label>
+                  <input placeholder="Physic mark" title="Value from 0.0 to 10.0" min="0.0" max="10.0" name="physicMark" type="number" #newphysicMark>
+                </div>
+              </div>
+              <br />
+            </div>
+            <!--<div class="inline field">
+              <div class="ui checkbox">
+                <input type="checkbox" name="terms">
+                <label>I agree to the terms and conditions</label>
+              </div>
+            </div>-->
+            
+            <div class="ui center aligned grid field">
+              <div (click)="addStudent(newfirstName, newlastName, newdayOfBirth, newmathematicMark, newphysicMark)" class="ui blue submit button ">Insert</div>
+            </div>
+          </div>
+        </div>
+      </div>
