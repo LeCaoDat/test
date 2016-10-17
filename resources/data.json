@@ -4,15 +4,15 @@
         "firstname":"Lê Cao",
         "lastname":"Đạt",
         "dob":"19/09/1996",
-        "average":"7.0",
-        "status":"Pass"
+        "average":"8.0",
+        "status":"Passed"
     },
     {
         "id":"2",
-        "firstname":"Võ Thị Kim",
-        "lastname":"Hường",
+        "firstname":"Võ Thị",
+        "lastname":"A",
         "dob":"09/03/1996",
         "average":"8.0",
-        "status":"Pass"
+        "status":"Passed"
     }
 ]

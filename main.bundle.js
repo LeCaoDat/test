@@ -10162,9 +10162,9 @@ webpackJsonp([1],[
 	var InputContent = (function () {
 	    function InputContent() {
 	        this.temp = false;
-	        this.days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
-	        this.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-	        this.years = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2016];
+	        this.days = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
+	        this.months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+	        this.years = ["1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2013", "2014", "2015", "2016"];
 	    }
 	    InputContent.prototype.isNumber = function (subject) {
 	        if (subject >= 0 && subject <= 10) {
@@ -10174,37 +10174,6 @@ webpackJsonp([1],[
 	            return false;
 	        }
 	    };
-	    // addStudent(firstName: HTMLInputElement, lastName: HTMLInputElement, dayOfBirth: HTMLInputElement, mathematicMark: HTMLInputElement, physicMark: HTMLInputElement): void {
-	    //   this.errors = [];
-	    //   if ( firstName.value.trim() == '' || lastName.value.trim() == '' || dayOfBirth.value.trim() == '' || mathematicMark.value.trim() == '' || physicMark.value.trim() == ''){
-	    //     this.errors.push('Please in put all field');
-	    //     this.temp = true;
-	    //   }
-	    //   else {
-	    //     if ( !firstName.value.match("^[a-zA-Z\\sđâấầẩẫậăắằẳẵặêếềểễệưứừửữựơớờởỡợôốồổỗộéèẻẽẹýỳỷỹỵúùủũụíìỉĩịóòỏõọáàảãạĐÂẤẦẨẪẬĂẮẰẲẴẶÊẾỀỂỄỆƯỨỪỬỮỰƠỚỜỞỠỢÔỐỒỔỖỘÉÈẺẼẸÝỲỶỸỴÚÙỦŨỤÍÌỈĨỊÓÒỎÕỌÁÀẢÃẠ_-]+$")){
-	    //       this.errors.push('Firstname error');
-	    //     }
-	    //     if ( !lastName.value.match("^[a-zA-Z\\sđâấầẩẫậăắằẳẵặêếềểễệưứừửữựơớờởỡợôốồổỗộéèẻẽẹýỳỷỹỵúùủũụíìỉĩịóòỏõọáàảãạĐÂẤẦẨẪẬĂẮẰẲẴẶÊẾỀỂỄỆƯỨỪỬỮỰƠỚỜỞỠỢÔỐỒỔỖỘÉÈẺẼẸÝỲỶỸỴÚÙỦŨỤÍÌỈĨỊÓÒỎÕỌÁÀẢÃẠ_-]+$")){
-	    //       this.errors.push('Lastname error');
-	    //     }
-	    //     if ( !this.isNumber(mathematicMark.value)  ){
-	    //       this.errors.push('Mathematic Mark error');
-	    //     }
-	    //     if ( !this.isNumber(physicMark.value) ){
-	    //       this.errors.push('Physic Mark error');
-	    //     }
-	    //     //isNaN(parseFloat(mathematicMark.value))
-	    //     if ( this.errors.length == 0) {
-	    //       this.teacher.addStudent(firstName.value,lastName.value,dayOfBirth.value,parseFloat(mathematicMark.value),parseFloat(physicMark.value));
-	    //       this.temp = false;
-	    //       console.log(`Adding student firstName: ${firstName.value}, lastName: ${lastName.value}, dayOfBirth: ${dayOfBirth.value}, mathematicMark: ${mathematicMark.value}, physicMark: ${physicMark.value}`);
-	    //     }
-	    //     else {
-	    //       // console.log("Loi tum lum");
-	    //       this.temp = true;
-	    //     }
-	    //   }
-	    // }
 	    InputContent.prototype.addStudent = function (firstName, lastName, day, month, year, mathematicMark, physicMark) {
 	        this.errors = [];
 	        if (firstName.value.trim() == '' || lastName.value.trim() == '' || day.value.trim() == '' || month.value.trim() == '' || year.value.trim() == '' || mathematicMark.value.trim() == '' || physicMark.value.trim() == '') {
@@ -10228,14 +10197,12 @@ webpackJsonp([1],[
 	            if (!this.isDate(parseInt(day.value), parseInt(month.value), parseInt(year.value)) || isNaN(parseInt(day.value)) || isNaN(parseInt(month.value)) || isNaN(parseInt(year.value))) {
 	                this.errors.push('Day of birth error');
 	            }
-	            //isNaN(parseFloat(mathematicMark.value))
 	            if (this.errors.length == 0) {
 	                this.teacher.addStudent(firstName.value, lastName.value, this.str, parseFloat(mathematicMark.value), parseFloat(physicMark.value));
 	                this.temp = false;
 	                console.log("Adding student firstName: " + firstName.value + ", lastName: " + lastName.value + ", dayOfBirth: " + this.str + ", mathematicMark: " + mathematicMark.value + ", physicMark: " + physicMark.value);
 	            }
 	            else {
-	                // console.log("Loi tum lum");
 	                this.temp = true;
 	            }
 	        }
@@ -10322,7 +10289,7 @@ webpackJsonp([1],[
 	            columnMode: angular2_data_table_1.ColumnMode.force,
 	            headerHeight: 50,
 	            footerHeight: 50,
-	            limit: 10,
+	            limit: 5,
 	            rowHeight: 'auto',
 	            columns: [
 	                new angular2_data_table_1.TableColumn({ name: 'ID', sortable: true }),
@@ -10344,7 +10311,7 @@ webpackJsonp([1],[
 	    }
 	    MainContent.prototype.fetch = function (cb) {
 	        var req = new XMLHttpRequest();
-	        req.open('GET', './resources/data.json');
+	        req.open('GET', '../../resources/data.json');
 	        req.onload = function () {
 	            cb(JSON.parse(req.response));
 	        };
@@ -10673,7 +10640,7 @@ webpackJsonp([1],[
 
 
 	// module
-	exports.push([module.id, ".avatar {\r\n    /*background-color: black; */\r\n    border-bottom: 1px solid #D8D8D8;\r\n    height: 300px;\r\n}\r\n.avatar img {\r\n    margin: 0;\r\n    padding: 0;\r\n\r\n    margin-left: 200px;\r\n    margin-top: 150px;\r\n    width: 150px;\r\n    height: 150px;\r\n}\r\nul {\r\n    list-style-type: none;\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    border: 1px solid #e7e7e7;\r\n    background-color: #f3f3f3;\r\n}\r\n\r\nli {\r\n    float: right;\r\n}\r\n\r\nli a {\r\n    display: block;\r\n    color: #666;\r\n    text-align: center;\r\n    padding: 14px 16px;\r\n    text-decoration: none;\r\n}\r\n\r\nli a:hover:not(.active) {\r\n    background-color: #ddd;\r\n}\r\n\r\nli a.active {\r\n    color: white;\r\n    background-color: #4CAF50;\r\n}", ""]);
+	exports.push([module.id, ".avatar {\r\n    /*background-color: black; */\r\n    border-bottom: 1px solid #D8D8D8;\r\n    height: 300px;\r\n}\r\n.avatar img {\r\n    margin: 0;\r\n    padding: 0;\r\n\r\n    margin-left: 80px;\r\n    margin-top: 150px;\r\n    width: 150px;\r\n    height: 150px;\r\n}\r\nul {\r\n    list-style-type: none;\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    border: 1px solid #e7e7e7;\r\n    background-color: #f3f3f3;\r\n}\r\n\r\nli {\r\n    float: right;\r\n}\r\n\r\nli a {\r\n    display: block;\r\n    color: #666;\r\n    text-align: center;\r\n    padding: 14px 16px;\r\n    text-decoration: none;\r\n}\r\n\r\nli a:hover:not(.active) {\r\n    background-color: #ddd;\r\n}\r\n\r\nli a.active {\r\n    color: white;\r\n    background-color: #4CAF50;\r\n}", ""]);
 
 	// exports
 
