@@ -10311,7 +10311,7 @@ webpackJsonp([1],[
 	    }
 	    MainContent.prototype.fetch = function (cb) {
 	        var req = new XMLHttpRequest();
-	        req.open('GET', '../../resources/data.json');
+	        req.open('GET', './resources/data.json');
 	        req.onload = function () {
 	            cb(JSON.parse(req.response));
 	        };
