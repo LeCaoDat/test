@@ -10174,6 +10174,47 @@ webpackJsonp([1],[
 	            return false;
 	        }
 	    };
+	    InputContent.prototype.nhuan = function (year) {
+	        if (year % 4 == 0) {
+	            if ((year % 100 == 0) && (year % 400 == 0))
+	                return true;
+	            if ((year % 100 != 0) && (year % 400 != 0))
+	                return true;
+	        }
+	        return false;
+	    };
+	    InputContent.prototype.isDate = function (day, month, year) {
+	        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+	            if (day >= 1 && day <= 31) {
+	                return true;
+	            }
+	            else {
+	                return false;
+	            }
+	        }
+	        else if (month == 4 || month == 6 || month == 9 || month == 11) {
+	            if (day >= 1 && day <= 30) {
+	                return true;
+	            }
+	            else {
+	                return false;
+	            }
+	        }
+	        else if (month == 2) {
+	            if (this.nhuan(year) && (day >= 1 && day <= 29)) {
+	                return true;
+	            }
+	            else if (!this.nhuan(year) && (day >= 1 && day <= 28)) {
+	                return true;
+	            }
+	            else {
+	                return false;
+	            }
+	        }
+	        else {
+	            return false;
+	        }
+	    };
 	    InputContent.prototype.addStudent = function (firstName, lastName, day, month, year, mathematicMark, physicMark) {
 	        this.errors = [];
 	        if (firstName.value.trim() == '' || lastName.value.trim() == '' || day.value.trim() == '' || month.value.trim() == '' || year.value.trim() == '' || mathematicMark.value.trim() == '' || physicMark.value.trim() == '') {
@@ -10207,49 +10248,6 @@ webpackJsonp([1],[
 	            }
 	        }
 	    };
-	    InputContent.prototype.nhuan = function (year) {
-	        if (year % 4 == 0) {
-	            if ((year % 100 == 0) && (year % 400 == 0))
-	                return true;
-	            if ((year % 100 != 0) && (year % 400 != 0))
-	                return true;
-	        }
-	        return false;
-	    };
-	    InputContent.prototype.isDate = function (day, month, year) {
-	        switch (month) {
-	            case 1:
-	            case 3:
-	            case 5:
-	            case 7:
-	            case 8:
-	            case 10:
-	            case 12:
-	                {
-	                    if (day >= 1 && day <= 31)
-	                        return true;
-	                    return false;
-	                }
-	            case 4:
-	            case 6:
-	            case 9:
-	            case 11:
-	                {
-	                    if (day >= 1 && day <= 30)
-	                        return true;
-	                    return false;
-	                }
-	            case 2:
-	                {
-	                    if (this.nhuan(year) && (day >= 1 && day <= 29))
-	                        return true;
-	                    if (!this.nhuan(year) && (day >= 1 && day <= 28))
-	                        return true;
-	                    return false;
-	                }
-	        }
-	        return false;
-	    };
 	    InputContent = __decorate([
 	        core_1.Component({
 	            selector: 'input-content',
@@ -10279,11 +10277,9 @@ webpackJsonp([1],[
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(24);
-	var Teacher_1 = __webpack_require__(234);
 	var angular2_data_table_1 = __webpack_require__(144);
 	var MainContent = (function () {
 	    function MainContent() {
-	        var _this = this;
 	        this.rows = [];
 	        this.options = new angular2_data_table_1.TableOptions({
 	            columnMode: angular2_data_table_1.ColumnMode.force,
@@ -10300,26 +10296,11 @@ webpackJsonp([1],[
 	                new angular2_data_table_1.TableColumn({ name: 'Status', sortable: true }),
 	            ]
 	        });
-	        this.teacher = new Teacher_1.Teacher('Uchiha', 'Obito', '19/09/1996');
-	        // this.teacher.addStudent('Lê Cao','Đạt','19/09/1996',7.1,7.9);
-	        // this.teacher.addStudent('Võ Thị Kim','Hường','09/03/1996',8.0,8.0);
-	        this.fetch(function (Student) {
-	            (_a = _this.teacher.students).push.apply(_a, Student);
-	            var _a;
-	        });
-	        this.rows = this.teacher.students;
 	    }
-	    MainContent.prototype.fetch = function (cb) {
-	        var req = new XMLHttpRequest();
-	        req.open('GET', './resources/data.json');
-	        req.onload = function () {
-	            cb(JSON.parse(req.response));
-	        };
-	        req.send();
-	    };
 	    MainContent = __decorate([
 	        core_1.Component({
 	            selector: 'main-content',
+	            inputs: ['rows'],
 	            template: __webpack_require__(412),
 	            styles: [__webpack_require__(715)],
 	        }), 
@@ -10443,9 +10424,26 @@ webpackJsonp([1],[
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(24);
+	var Teacher_1 = __webpack_require__(234);
 	var AppComponent = (function () {
 	    function AppComponent() {
+	        var _this = this;
+	        this.teacher = new Teacher_1.Teacher('Uchiha', 'Obito', '19/09/1996');
+	        // this.teacher.addStudent('Lê Cao','Đạt','19/09/1996',8.0,8.0);
+	        // this.teacher.addStudent('Võ Thị','A','09/03/1996',8.0,8.0);
+	        this.fetch(function (Student) {
+	            (_a = _this.teacher.students).push.apply(_a, Student);
+	            var _a;
+	        });
 	    }
+	    AppComponent.prototype.fetch = function (cb) {
+	        var req = new XMLHttpRequest();
+	        req.open('GET', './resources/data.json');
+	        req.onload = function () {
+	            cb(JSON.parse(req.response));
+	        };
+	        req.send();
+	    };
 	    AppComponent = __decorate([
 	        core_1.Component({
 	            selector: 'app',
@@ -10684,25 +10682,25 @@ webpackJsonp([1],[
 /* 410 */
 /***/ function(module, exports) {
 
-	module.exports = "    <!--<div class=\"ui menu\">\r\n      <div class=\"right menu\">\r\n        <a href=\"#\" class=\"ui item borderless\">Home</a>\r\n        <a href=\"#\" class=\"ui item borderless\">Sign Out</a>\r\n      </div>\r\n    </div>-->\r\n    <ul>\r\n      <div class=\"ui container\">\r\n      <li><a href=\"#\" class=\"ui item borderless\">Sign Out</a></li>\r\n      <li><a href=\"#\" class=\"ui item borderless\">Home</a></li>\r\n      </div>\r\n    </ul>\r\n    <!--<div class=\"head\">-->\r\n      <div class=\"avatar\" style=\"background-image: url('resources/images/mountain.jpg')\">\r\n        <img src=\"resources/images/avatar.jpg\" >\r\n      </div>\r\n    <!--</div>-->\r\n\r\n\r\n      <!--<div class=\"ui divider\"></div>-->\r\n"
+	module.exports = "<!--<div class=\"ui menu\">\r\n      <div class=\"right menu\">\r\n        <a href=\"#\" class=\"ui item borderless\">Home</a>\r\n        <a href=\"#\" class=\"ui item borderless\">Sign Out</a>\r\n      </div>\r\n    </div>-->\r\n<ul>\r\n  <div class=\"ui container\">\r\n    <li><a href=\"#\" class=\"ui item borderless\">Sign Out</a></li>\r\n    <li><a href=\"#\" class=\"ui item borderless\">Home</a></li>\r\n  </div>\r\n</ul>\r\n<div class=\"avatar\" style=\"background-image: url('resources/images/mountain.jpg')\">\r\n  <img src=\"resources/images/avatar.jpg\">\r\n</div>"
 
 /***/ },
 /* 411 */
 /***/ function(module, exports) {
 
-	module.exports = "      <div class=\"row\">\r\n        <div class=\"column\">\r\n          <div class=\"ui form\">\r\n            <div class=\"ui segment\">\r\n              <div class=\"field notice\" *ngIf=\"temp\">\r\n                <p><b>There was some errors with your submission</b></p>\r\n                <ul *ngFor=\"let error of errors\" class=\"subnotice\">\r\n                  <li>{{ error }}</li>\r\n                </ul>\r\n              </div>\r\n              <div class=\"inline fields\">\r\n                <div class=\"eight wide field\">\r\n                  <label>Firstname</label>\r\n                  <input placeholder=\"Input Firstname\" name=\"firstName\" type=\"text\" #newfirstName>\r\n                </div>\r\n                <div class=\"eight wide field\">\r\n                  <label>Lastname</label>\r\n                  <input placeholder=\"Input Lastname\" name=\"lastName\" type=\"text\" #newlastName>\r\n                </div>\r\n              </div>\r\n              <!--<div class=\"ui center aligned grid field\">\r\n                <div class=\"inline six wide field \">\r\n                  <label>Day of Birth</label>\r\n                  <div class=\"ui calendar\" id=\"example2\">\r\n                    <div class=\"ui input left icon\">\r\n                      <i class=\"calendar icon\"></i>\r\n                      <input type=\"date\" placeholder=\"Date\" name=\"dayOfBirth\" #newdayOfBirth>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>-->\r\n              <br />\r\n              <div class=\"ui center aligned grid fields\">\r\n                <div class=\"inline field \">\r\n                  <label>Day of Birth</label>\r\n                  <!--<input type=\"date\" placeholder=\"Date\" name=\"dayOfBirth\" #newdayOfBirth>-->\r\n                  <select name=\"day\" #newday>\r\n                    <option *ngFor=\"let day of days\" value=\"{{ day }}\" label=\"{{ day }}\">{{ day }}</option>\r\n                  </select>\r\n                  <!--<input type=\"hidden\" name=\"newday\" value=\"{{yourSelect}}\" />-->\r\n                </div>\r\n                <div class=\"field\">\r\n                  <select name=\"month\" #newmonth>\r\n                    <option *ngFor=\"let month of months\" value=\"{{ month }}\" label=\"{{ month }}\">{{ month }}</option>\r\n                  </select>\r\n                </div>\r\n                <div class=\"field\">\r\n                  <select name=\"year\" #newyear>\r\n                    <option *ngFor=\"let year of years\" value=\"{{ year }}\" label=\"{{ year }}\">{{ year }}</option>\r\n                  </select>\r\n                </div>\r\n              </div>\r\n              <br />\r\n              <div class=\"inline fields\">\r\n                <div class=\"eight wide field\">\r\n                  <label>Mathematic</label>\r\n                  <input placeholder=\"Mathematic mark\" title=\"Value from 0.0 to 10.0\" min=\"0.0\" max=\"10.0\" name=\"mathematicMark\" type=\"number\" #newmathematicMark>\r\n                </div>\r\n                <div class=\"eight wide field\">\r\n                  <label>Physic</label>\r\n                  <input placeholder=\"Physic mark\" title=\"Value from 0.0 to 10.0\" min=\"0.0\" max=\"10.0\" name=\"physicMark\" type=\"number\" #newphysicMark>\r\n                </div>\r\n              </div>\r\n              <br />\r\n            </div>\r\n            <!--<div class=\"inline field\">\r\n              <div class=\"ui checkbox\">\r\n                <input type=\"checkbox\" name=\"terms\">\r\n                <label>I agree to the terms and conditions</label>\r\n              </div>\r\n            </div>-->\r\n            \r\n            <div class=\"ui center aligned grid field\">\r\n              <div (click)=\"addStudent(newfirstName, newlastName, newday, newmonth, newyear, newmathematicMark, newphysicMark)\" class=\"ui blue submit button \">Insert</div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <br />"
+	module.exports = "\r\n    <div class=\"ui form\">\r\n      <div class=\"ui segment\">\r\n        <div class=\"field notice\" *ngIf=\"temp\">\r\n          <p><b>There was some errors with your submission</b></p>\r\n          <ul *ngFor=\"let error of errors\" class=\"subnotice\">\r\n            <li>{{ error }}</li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"inline fields\">\r\n          <div class=\"eight wide field\">\r\n            <label>Firstname</label>\r\n            <input placeholder=\"Input Firstname\" name=\"firstName\" type=\"text\" #newfirstName>\r\n          </div>\r\n          <div class=\"eight wide field\">\r\n            <label>Lastname</label>\r\n            <input placeholder=\"Input Lastname\" name=\"lastName\" type=\"text\" #newlastName>\r\n          </div>\r\n        </div>\r\n        <!--<div class=\"ui center aligned grid field\">\r\n                <div class=\"inline six wide field \">\r\n                  <label>Day of Birth</label>\r\n                  <div class=\"ui calendar\" id=\"example2\">\r\n                    <div class=\"ui input left icon\">\r\n                      <i class=\"calendar icon\"></i>\r\n                      <input type=\"date\" placeholder=\"Date\" name=\"dayOfBirth\" #newdayOfBirth>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>-->\r\n        <br />\r\n        <div class=\"ui center aligned grid fields\">\r\n          <div class=\"inline field \">\r\n            <label>Day of Birth</label>\r\n            <select name=\"day\" #newday>\r\n              <option *ngFor=\"let day of days\" value=\"{{ day }}\" label=\"{{ day }}\">{{ day }}</option>\r\n            </select>\r\n          </div>\r\n          <div class=\"field\">\r\n            <select name=\"month\" #newmonth>\r\n              <option *ngFor=\"let month of months\" value=\"{{ month }}\" label=\"{{ month }}\">{{ month }}</option>\r\n            </select>\r\n          </div>\r\n          <div class=\"field\">\r\n            <select name=\"year\" #newyear>\r\n              <option *ngFor=\"let year of years\" value=\"{{ year }}\" label=\"{{ year }}\">{{ year }}</option>\r\n            </select>\r\n          </div>\r\n        </div>\r\n        <br />\r\n        <div class=\"inline fields\">\r\n          <div class=\"eight wide field\">\r\n            <label>Mathematic</label>\r\n            <input placeholder=\"Mathematic mark\" title=\"Value from 0.0 to 10.0\" min=\"0.0\" max=\"10.0\" name=\"mathematicMark\" type=\"number\"\r\n              #newmathematicMark>\r\n          </div>\r\n          <div class=\"eight wide field\">\r\n            <label>Physic</label>\r\n            <input placeholder=\"Physic mark\" title=\"Value from 0.0 to 10.0\" min=\"0.0\" max=\"10.0\" name=\"physicMark\" type=\"number\" #newphysicMark>\r\n          </div>\r\n        </div>\r\n        <br />\r\n      </div>\r\n      <div class=\"ui center aligned grid field\">\r\n        <div (click)=\"addStudent(newfirstName, newlastName, newday, newmonth, newyear, newmathematicMark, newphysicMark)\" class=\"ui blue submit button \">Insert</div>\r\n      </div>\r\n    </div>\r\n\r\n<br />"
 
 /***/ },
 /* 412 */
 /***/ function(module, exports) {
 
-	module.exports = "      <div class=\"main\">\r\n      <div class=\"row\">\r\n        <div class=\"column\">\r\n          <!--<table class=\"ui very basic selectable left aligned table sortable\">\r\n            <thead>\r\n              <th>ID</th>\r\n              <th>Firstname</th>\r\n              <th>Lastname</th>\r\n              <th>DoB</th>\r\n              <th (click)=\"sortAverage()\" >Average</th>\r\n              <th>Average</th>\r\n              <th>Status</th>\r\n            </thead>\r\n            <tbody>\r\n                <tr class=\"left aligned\" *ngFor=\"let student of teacher.students\">\r\n                  <td>{{ student.id }}</td>\r\n                  <td>{{ student.firstname }}</td>\r\n                  <td>{{ student.lastname }}</td>\r\n                  <td>{{ student.dob }}</td>\r\n                  <td>{{ student.average }}</td>\r\n                  <td>{{ student.status }}</td>\r\n                </tr>\r\n            </tbody>\r\n          </table>-->\r\n                <datatable\r\n                  class='material striped'\r\n                  [rows]='rows'\r\n                  [options]='options'>\r\n                </datatable>\r\n        </div>\r\n      </div>\r\n      <div class=\"ui divider\"></div>\r\n      <div class=\"ui text container\">\r\n        <input-content [teacher]=\"teacher\">Loading Add Student...</input-content>\r\n      </div>\r\n      </div>"
+	module.exports = "<div class=\"main\">\r\n  <div class=\"row\">\r\n    <div class=\"column\">\r\n      <datatable class='material striped' [rows]='rows' [options]='options'>\r\n      </datatable>\r\n    </div>\r\n  </div>\r\n  <!--<div class=\"ui divider\"></div>-->\r\n</div>\r\n<br />"
 
 /***/ },
 /* 413 */
 /***/ function(module, exports) {
 
-	module.exports = "<header-component>Loading...</header-component>\r\n<!--<div class=\"ui text container\">-->\r\n      <main-content>Loading...</main-content>\r\n<!--</div>-->"
+	module.exports = "<header-component>Loading...</header-component>\r\n<div class=\"ui container\">\r\n    <main-content [rows]=\"teacher.students\">Loading...</main-content>\r\n    <input-content [teacher]=\"teacher\">Loading Add Student...</input-content>\r\n</div>"
 
 /***/ },
 /* 414 */,
