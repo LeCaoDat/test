@@ -1,15 +1,15 @@
 [
     {
         "id":"1",
-        "firstname":"L� Cao",
-        "lastname":"�?t",
+        "firstname":"Lê Cao",
+        "lastname":"Đạt",
         "dob":"19/09/1996",
         "average":"8.0",
         "status":"Passed"
     },
     {
         "id":"2",
-        "firstname":"V� Th?",
+        "firstname":"Võ Thị",
         "lastname":"A",
         "dob":"09/03/1996",
         "average":"8.0",
@@ -17,7 +17,7 @@
     },
     {
         "id":"3",
-        "firstname":"Nguy?n Van",
+        "firstname":"Nguyễn Văn",
         "lastname":"B",
         "dob":"21/12/2012",
         "average":"4.9",
